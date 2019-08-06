@@ -20,6 +20,7 @@ detail_path = '//div[@class="hq-data tab-pane1 fl"]//tbody'
 
 def create_browser(url):
     browser.get(url)
+#     print('页面')
     return browser.page_source
 
 
@@ -39,6 +40,7 @@ def gupiao_main(query):
     url = 'http://so.eastmoney.com/web/s?keyword='+parse.quote(query)
     search_html_tree = etree.HTML(create_browser(url))
     detail_url = search_html_tree.xpath(search_path)[0]
+#     print(detail_url)
     if detail_url:
         return run(detail_url)
     else:

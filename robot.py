@@ -4,6 +4,7 @@ from get_univ import main
 from bingfanyi import fanyi_main
 from gupiao import gupiao_main
 from qiubai import QiushiSpider
+from lajifenlei import parse_response
 import re
 
 
@@ -29,6 +30,8 @@ def my_response(message):
         return fanyi_main(message.lstrip('翻译：'))
     elif re.match(r'股票：', message):
         return gupiao_main(message.lstrip('股票：'))
+    elif re.match(r'垃圾分类：', message):
+        return gupiao_main(message.lstrip('垃圾分类：'))
     else:
         return get_response(message)
 
@@ -49,7 +52,7 @@ def friend_content(msg):
 @itchat.msg_register(itchat.content.TEXT, isGroupChat=True)
 def group_content(msg):
     try:
-        if itchat.search_chatrooms(userName=msg['FromUserName'])['NickName'] in ['测试']:
+        if itchat.search_chatrooms(userName=msg['FromUserName'])['NickName'] in ['测试', '嘻嘻']:
             print(msg['Text'])
             return my_response(msg['Text'])
     except:
